@@ -1,0 +1,4 @@
+---
+
+tcpwrappers::package_name: 'tcpwrappers'
+tcpwrappers::service_name: 'tcpwrappers'
