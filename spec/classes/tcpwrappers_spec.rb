@@ -13,18 +13,9 @@ describe 'tcpwrappers' do
 
           it { is_expected.to contain_class('tcpwrappers::install') }
           it { is_expected.to contain_class('tcpwrappers::config') }
-          it { is_expected.to contain_class('tcpwrappers::service') }
           it { is_expected.to contain_class('tcpwrappers::install').that_comes_before('Class[tcpwrappers::config]') }
-          it { is_expected.to contain_class('tcpwrappers::service').that_subscribes_to('Class[tcpwrappers::config]') }
 
-          it { is_expected.to contain_package('tcpwrappers').with_ensure('present') }
-
-          it { is_expected.to contain_service('tcpwrappers').with(
-            'ensure'     => 'running',
-            'enable'     => 'true',
-            'hasstatus'  => 'true',
-            'hasrestart' => 'true',
-          ) }
+          it { is_expected.to contain_package('tcp_wrappers').with_ensure('present') }
         end
       end
     end

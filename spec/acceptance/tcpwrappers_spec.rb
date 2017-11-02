@@ -13,13 +13,8 @@ describe 'tcpwrappers class' do
       apply_manifest(pp, :catch_changes  => true)
     end
 
-    describe package('tcpwrappers') do
+    describe package('tcp_wrappers') do
       it { should be_installed }
-    end
-
-    describe service('tcpwrappers') do
-      it { should be_enabled }
-      it { should be_running }
     end
   end
 end
