@@ -7,8 +7,17 @@
 # @param package_name [String] Specifies the name of the package to install. Default value: 'tcp_wrappers'.
 #
 class tcpwrappers (
-  String                     $package_ensure = 'present',
-  String                     $package_name   = 'tcp_wrappers',
+  Boolean         $allow_header = true,
+  String          $allow_header_source = "tcpwrappers/allow_header_${::operatingsystem}",
+  Boolean         $allow_localhost = true,
+  String          $config_dir = '/etc',
+  Boolean         $default_deny = true,
+  Boolean         $deny_header = true,
+  String          $deny_header_source = "tcpwrappers/deny_header_${::operatingsystem}",
+  String          $file_allow = 'hosts.allow',
+  String          $file_deny  = 'hosts.deny',
+  String          $package_ensure = 'present',
+  String          $package_name   = 'tcp_wrappers',
   ) {
   case $::operatingsystem {
     'RedHat', 'CentOS': {

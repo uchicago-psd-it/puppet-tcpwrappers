@@ -1,3 +1,4 @@
 ---
 
-tcpwrappers::package_name: 'tcp_wrappers'
+tcpwrappers::allow_header_source: 'tcpwrappers/allow_header_RedHat'
+tcpwrappers::deny_header_source: 'tcpwrappers/deny_header_RedHat'
