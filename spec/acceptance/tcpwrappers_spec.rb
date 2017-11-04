@@ -35,4 +35,55 @@ describe 'tcpwrappers class' do
       it { should_not contain 'DENY' }
     end
   end
+
+  context 'with allow_header set to false' do
+    let(:pp) { "class { 'tcpwrappers': allow_header => false, allow_localhost_ipv4 => true, }" }
+    it 'should work idempotently with no errors' do
+      apply_manifest(pp, :catch_failures => true)
+      apply_manifest(pp, :catch_changes  => true)
+    end
+
+    describe file('/etc/hosts.allow') do
+      it { should_not contain 'Puppet managed file. Local changes will be overwritten.' }
+      it { should_not contain 'allow or deny connections to network services that' }
+    end
+
+  end
+
+  context 'with allow_localhost_ipv4 set to true' do
+    let(:pp) { "class { 'tcpwrappers': allow_localhost_ipv4 => true, }" }
+    it 'should work idempotently with no errors' do
+      apply_manifest(pp, :catch_failures => true)
+      apply_manifest(pp, :catch_changes  => true)
+    end
+
+    describe file('/etc/hosts.allow') do
+      it { should contain 'ALL : 127.0.0.1 : ALLOW' }
+    end
+  end
+
+  context 'with allow_localhost_ipv6 set to true' do
+    let(:pp) { "class { 'tcpwrappers': allow_localhost_ipv6 => true, }" }
+    it 'should work idempotently with no errors' do
+      apply_manifest(pp, :catch_failures => true)
+      apply_manifest(pp, :catch_changes  => true)
+    end
+
+    describe file('/etc/hosts.allow') do
+      it { should contain 'ALL : [::1] : ALLOW' }
+    end
+  end
+
+#  context 'with default_deny set to true' do
+#    let(:pp) { "class { 'tcpwrappers': default_deny => true, }" }
+#
+#    it 'should work idempotently with no errors' do
+#      apply_manifest(pp, :catch_failures => true)
+#      apply_manifest(pp, :catch_changes  => true)
+#    end
+#
+#    describe file('/etc/hosts.deny') do
+#      it { should contain 'ALL : ALL' }
+#    end
+#  end
 end

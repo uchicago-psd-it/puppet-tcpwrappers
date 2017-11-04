@@ -9,9 +9,10 @@
 class tcpwrappers (
   Boolean         $allow_header = true,
   String          $allow_header_source = "tcpwrappers/allow_header_${::operatingsystem}",
-  Boolean         $allow_localhost = true,
+  Boolean         $allow_localhost_ipv4 = false,
+  Boolean         $allow_localhost_ipv6 = false,
   String          $config_dir = '/etc',
-  Boolean         $default_deny = true,
+  Boolean         $default_deny = false,
   Boolean         $deny_header = true,
   String          $deny_header_source = "tcpwrappers/deny_header_${::operatingsystem}",
   String          $file_allow = 'hosts.allow',

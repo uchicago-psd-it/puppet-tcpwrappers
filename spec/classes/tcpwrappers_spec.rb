@@ -49,6 +49,10 @@ describe 'tcpwrappers' do
             it { is_expected.to contain_concat__fragment('tcpwrappers_allow_header').with_source('puppet:///modules/tcpwrappers/allow_header_RedHat') }
           end
 
+          it { is_expected.to_not contain_concat__fragment('tcpwrappers_allow_localhost_ipv4') }
+
+          it { is_expected.to_not contain_concat__fragment('tcpwrappers_allow_localhost_ipv6') }
+
           it { is_expected.to contain_concat__fragment('tcpwrappers_deny_header').with(
             'target' => '/etc/hosts.deny',
             'order' => '0_header',
@@ -61,6 +65,8 @@ describe 'tcpwrappers' do
           if facts[:os]['name'] == "RedHat"
             it { is_expected.to contain_concat__fragment('tcpwrappers_deny_header').with_source('puppet:///modules/tcpwrappers/deny_header_RedHat') }
           end
+
+          it { is_expected.to_not contain_concat__fragment('tcpwrappers_default_deny') }
         end
 
         context "tcpwrappers class with allow_header set to false" do
@@ -72,6 +78,44 @@ describe 'tcpwrappers' do
 
           it { is_expected.to_not contain_concat__fragment('tcpwrappers_allow_header') }
         end
+
+        context "tcpwrappers class with allow_localhost_ipv4 set to true" do
+          let(:params){
+            {
+              :allow_localhost_ipv4 => true,
+            }
+          }
+
+          it { is_expected.to contain_concat__fragment('tcpwrappers_allow_localhost_ipv4').with(
+            'target' => '/etc/hosts.allow',
+            'order'  => '0_localhost_ipv4',
+            'source' => 'puppet:///modules/tcpwrappers/allow_localhost_ipv4',
+          ) }
+        end
+
+        context "tcpwrappers class with allow_localhost_ipv6 set to true" do
+          let(:params){
+            {
+              :allow_localhost_ipv6 => true,
+            }
+          }
+
+          it { is_expected.to contain_concat__fragment('tcpwrappers_allow_localhost_ipv6').with(
+            'target' => '/etc/hosts.allow',
+            'order'  => '0_localhost_ipv6',
+            'source' => 'puppet:///modules/tcpwrappers/allow_localhost_ipv6',
+          ) }
+        end
+
+        context "tcpwrappers class with allow_header_source set to foo/bar_file" do
+          let(:params){
+            {
+              :allow_header_source => 'foo/bar_file',
+            }
+          }
+
+            it { is_expected.to contain_concat__fragment('tcpwrappers_allow_header').with_source('puppet:///modules/foo/bar_file') }
+          end
 
         context "tcpwrappers class with config_dir set to /foo" do
           let(:params){
@@ -86,6 +130,20 @@ describe 'tcpwrappers' do
           it { is_expected.to contain_concat__fragment('tcpwrappers_deny_header').with_target('/foo/hosts.deny') }
         end
 
+        context "tcpwrappers class with default_deny set to true" do
+          let(:params){
+            {
+              :default_deny => true,
+            }
+          }
+
+          it { is_expected.to contain_concat__fragment('tcpwrappers_default_deny').with(
+            'target'  => '/etc/hosts.deny',
+            'order'   => 'ZZ_deny_all',
+            'content' => 'ALL : ALL',
+          ) }
+        end
+
         context "tcpwrappers class with deny_header set to false" do
           let(:params){
             {
@@ -95,6 +153,16 @@ describe 'tcpwrappers' do
 
           it { is_expected.to_not contain_concat__fragment('tcpwrappers_deny_header') }
         end
+
+        context "tcpwrappers class with deny_header_source set to foo/bar_file" do
+          let(:params){
+            {
+              :deny_header_source => 'foo/bar_file',
+            }
+          }
+
+            it { is_expected.to contain_concat__fragment('tcpwrappers_deny_header').with_source('puppet:///modules/foo/bar_file') }
+          end
 
         context "tcpwrappers class with file_allow parameter set to foo.allow" do
           let(:params){
