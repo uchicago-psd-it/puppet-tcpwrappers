@@ -3,7 +3,7 @@
 tcpwrappers::allow_header: true
 tcpwrappers::allow_localhost: true
 tcpwrappers::config_dir: '/etc'
-tcpwrappers::default_deny: true
+tcpwrappers::default_deny: false
 tcpwrappers::deny_header: true
 tcpwrappers::file_allow: 'hosts.allow'
 tcpwrappers::file_deny: 'hosts.deny'
