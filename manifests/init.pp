@@ -11,6 +11,7 @@ class tcpwrappers (
   String          $allow_header_source = "tcpwrappers/allow_header_${::operatingsystem}",
   Boolean         $allow_localhost_ipv4 = false,
   Boolean         $allow_localhost_ipv6 = false,
+  Boolean         $allow_sshd_all = false,
   String          $config_dir = '/etc',
   Boolean         $default_deny = false,
   Boolean         $deny_header = true,

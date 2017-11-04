@@ -53,6 +53,8 @@ describe 'tcpwrappers' do
 
           it { is_expected.to_not contain_concat__fragment('tcpwrappers_allow_localhost_ipv6') }
 
+          it { is_expected.to_not contain_concat__fragment('tcpwrappers_allow_sshd_all') }
+
           it { is_expected.to contain_concat__fragment('tcpwrappers_deny_header').with(
             'target' => '/etc/hosts.deny',
             'order' => '0_header',
@@ -104,6 +106,20 @@ describe 'tcpwrappers' do
             'target' => '/etc/hosts.allow',
             'order'  => '0_localhost_ipv6',
             'source' => 'puppet:///modules/tcpwrappers/allow_localhost_ipv6',
+          ) }
+        end
+
+        context "tcpwrappers class with allow_sshd_all set to true" do
+          let(:params){
+            {
+              :allow_sshd_all => true,
+            }
+          }
+
+          it { is_expected.to contain_concat__fragment('tcpwrappers_allow_sshd_all').with(
+            'target' => '/etc/hosts.allow',
+            'order'  => '0_sshd_all',
+            'source' => 'puppet:///modules/tcpwrappers/allow_sshd_all',
           ) }
         end
 

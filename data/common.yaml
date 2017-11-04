@@ -2,6 +2,7 @@
 
 tcpwrappers::allow_header: true
 tcpwrappers::allow_localhost: true
+tcpwrappers::allow_sshd_all: false
 tcpwrappers::config_dir: '/etc'
 tcpwrappers::default_deny: false
 tcpwrappers::deny_header: true

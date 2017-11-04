@@ -1,0 +1,3 @@
+# allow sshd from all
+sshd : ALL : ALLOW
+

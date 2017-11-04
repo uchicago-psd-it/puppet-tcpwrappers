@@ -40,6 +40,13 @@ class tcpwrappers::config {
       source => 'puppet:///modules/tcpwrappers/allow_localhost_ipv6',
     }
   }
+  if $tcpwrappers::allow_sshd_all {
+    concat::fragment { 'tcpwrappers_allow_sshd_all':
+      target => "${tcpwrappers::config_dir}/${tcpwrappers::file_allow}",
+      order  => '0_sshd_all',
+      source => 'puppet:///modules/tcpwrappers/allow_sshd_all',
+    }
+  }
   if $tcpwrappers::deny_header {
     concat::fragment { 'tcpwrappers_deny_header':
       target => "${tcpwrappers::config_dir}/${tcpwrappers::file_deny}",
