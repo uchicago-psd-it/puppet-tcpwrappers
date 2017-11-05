@@ -1,3 +1,8 @@
+2017-11-05 Release 1.0.1
+- metadata.json: modded to point project_page to github source instead of documentation pages
+- Fixed puppet lint errors
+- .travis.yml: updated for new password
+
 2017-11-05 Release 1.0.0
 - Installation and configuration of tcpwrappers for RedHat/CentOS 6/7
 - Added ability to create access/deny rules using alphanumeric ordered concat fragments
