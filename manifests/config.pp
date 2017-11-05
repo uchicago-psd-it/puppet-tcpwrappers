@@ -1,6 +1,6 @@
 # @api private
 #
-# This class is called from tcpwrappers for service config.
+# This class is called from tcpwrappers class to configure some basic pieces.
 #
 class tcpwrappers::config {
   concat { "${tcpwrappers::config_dir}/${tcpwrappers::file_allow}":
