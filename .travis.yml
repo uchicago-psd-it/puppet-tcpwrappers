@@ -25,23 +25,9 @@ matrix:
     - rvm: 2.4.1
       bundler_args: --without system_tests development
       env: PUPPET_VERSION="~> 5.0" CHECK=test
-    - rvm: 2.4.1
-      bundler_args: --without system_tests development
-      env: PUPPET_VERSION="~> 5.0" CHECK=test DEPLOY_TO_FORGE=yes
 branches:
   only:
     - master
     - /^v\d/
 notifications:
   email: false
-deploy:
-  provider: puppetforge
-  user: millerjl1701
-  password:
-    secure: Qhx4s697Uz/9fYpk95H7B7MUuPLYRj2fJczCDgcyUAZntzTRR7DjkI+tEKjk/Wvm9046tSKmusdD1gTe6xLeSWIAE/IMo3mATJoGQLmyXPkUK8j4Te3LewgcJ/9FhZDAssY1JWSuy9up0SP5TkPH1nL/FU4DwXzr3CGONUvGpPojGV7TIjCHcUHdvUwLPFiS7VMlXXahM/Xa2qF21lofqxiCVwaPm9L3pBQUAtPFzXQ3YAcM025GEu9MpjhcfydM/N7boObUQy7iRU9cANgMDbdSeK3B7oOqIiJaDHMU2BCAA+dxadgmvnP1UoVvuWPdCarPzMxriAm4DLfNgwbOuKFsk6zQC3bwNP3548r6Zgl22pf5ITPTOhsjPqmn+NrH94sNWbTPnzAfIaUqz0pFPvffhjp7yZAO6kaFKriaMJ0qhPsxLZ6PJCJyo8+ZlN33qa1JHQf2EYHGj0/CPTCfAMYuWuE18EyejxIipMdEdwIHUFNEaonBbV/iO1FUJSPG/ENfMnW5sZy7JMDOK0/SqsgeOB1ZF4QQNoPTuctI7KF+rfCTF0G/Q3yxRY33hu9l94wTH5cLpNLhsR4s4giICPAJ4pnZPfAfzFJpZ/04zVnrdG9Ymw6lfqoJoLNTeQBPQdJbsi1jDbMHAlG9ZSeZNAtQ0p4lUHJWHmOQPtKa32Q=
-  on:
-    tags: true
-    # all_branches is required to use tags
-    all_branches: true
-    # Only publish the build marked with "DEPLOY_TO_FORGE"
-    condition: "$DEPLOY_TO_FORGE = yes"
