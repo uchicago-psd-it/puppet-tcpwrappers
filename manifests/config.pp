@@ -58,7 +58,7 @@ class tcpwrappers::config {
     concat::fragment { 'tcpwrappers_default_deny':
       target  => "${tcpwrappers::config_dir}/${tcpwrappers::file_deny}",
       order   => 'ZZ_deny_all',
-      content => "ALL : ALL",
+      content => 'ALL : ALL',
     }
   }
 }

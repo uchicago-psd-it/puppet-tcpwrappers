@@ -31,6 +31,6 @@ define tcpwrappers::allow (
   concat::fragment { "tcpwrappers_${name}":
     target  => "${tcpwrappers::config_dir}/${tcpwrappers::file_allow}",
     order   => $order,
-    content => template("${allow_template}"),
+    content => template($allow_template),
   }
 }
