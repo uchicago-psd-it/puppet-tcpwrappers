@@ -4,8 +4,8 @@
   "author": "millerjl1701",
   "summary": "Module to configure host allow/deny rules.",
   "license": "Apache-2.0",
-  "source": "https://github.com/millerjl1701/millerjl1701-tcpwrappers",
-  "project_page": "https://millerjl1701.github.io/millerjl1701-tcpwrappers/",
+  "source": "https://github.com/millerjl1701/millerjl1701-tcpwrappers/",
+  "project_page": "https://github.com/millerjl1701/millerjl1701-tcpwrappers/",
   "issues_url": "https://github.com/millerjl1701/millerjl1701-tcpwrappers/issues",
   "dependencies": [
     {
