@@ -35,7 +35,9 @@ Warning: If this class is applied to a system with hosts.allow and/or hosts.deny
 
 ## Usage
 
-All parameters to the main class can be passed via puppet code or hiera. Hiera 5 module data is provided in the data folder to include lookup_options to drive the creation of multiple fragments with the tcpwrappers::allows class.
+All parameters to the main class can be passed via puppet code or hiera.
+
+Note: By default when using hiera data, the first encountered instance of the key tcpwrappers::allows::rules will be used. It is possible to generate a merged hash of tcpwrappers::allows::rules from across multiple hiera data files if lookup_options are specified. Please see the examples below for details.
 
 Some examples are presented below showing the purpose of some of the parameters of classes of the module. Those generating rules in hosts.allow show how to create those rules similar to those listed in the RedHat/CentOS tcpwrappers documentation.
 
@@ -186,8 +188,7 @@ class { 'tcpwrappers': }
   }
 }
 ```
-
-### Using hiera data to create multiple tcpwrappers rules
+### Using hiera data to create multiple tcpwrappers rules with the default behavior
 
 ```yaml
  ---
@@ -203,6 +204,30 @@ class { 'tcpwrappers': }
       daemon_list: vsftpd
       order: 21_vsftpd_all
       comment: 'Allow all clients access to vsftpd'
+```
+
+### Using hiera data to create multiple tcpwrappers rules with a merged hash from multiple files
+
+```yaml
+ ---
+ # node.yaml
+  tcpwrappers::allows::rules:
+    httpd_all:
+      client_list: ALL
+      daemon_list: httpd
+      order: 80_httpd_all
+      comment: 'Allow all clients access to httpd'
+
+# common.yaml
+lookup_options:
+  tcpwrappers::allows::rules:
+    merge: hash
+tcpwrappers::allows::rules:
+    sshd_all
+      client_list: ALL
+      daemon_list: sshd
+      order: 22_sshd_all
+      comment: 'Allow all clients access to sshd'
 ```
 
 ## Reference
