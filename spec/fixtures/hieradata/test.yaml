@@ -1,0 +1,9 @@
+---
+# other key/value pairs
+
+tcpwrappers::allows::rules:
+  spec_httpd:
+    client_list: ALL
+    daemon_list: httpd
+    order: 80_httpd_all
+    comment: 'Allow all clients access to httpd'

@@ -5,4 +5,5 @@
   :datadir: './spec/fixtures/hieradata'
 :hierarchy:
   - '%{::clientcert}'
+  - 'test'
   - 'default'
