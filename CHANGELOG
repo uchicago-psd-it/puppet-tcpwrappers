@@ -1,3 +1,6 @@
+2017-11-07 Release 1.1.0
+- adds the ability to create multiple rules at once using hiera data files or passing a hash to the tcpwrappers::allows class
+
 2017-11-05 Release 1.0.1
 - metadata.json: modded to point project_page to github source instead of documentation pages
 - Fixed puppet lint errors
