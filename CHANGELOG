@@ -1,3 +1,7 @@
+2018-11-08 Release 1.1.1
+- Added tiered hiera data files to test merge behavior
+- Updated README for use of merge behavior instead of default first
+
 2017-11-07 Release 1.1.0
 - adds the ability to create multiple rules at once using hiera data files or passing a hash to the tcpwrappers::allows class
 
