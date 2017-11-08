@@ -120,16 +120,15 @@ and configure tcpwrappers to the system defaults.</p>
 
 <h2 id="label-Usage">Usage</h2>
 
-<p>All parameters to the main class can be passed via puppet code or hiera. A
-module data folder for hiera 5 is included. Currently, rule generation via
-the tcpwrappers::allow class can only be done via puppet code. Adding the
-ability to drive rules via hiera/create_resources is a high priority item
-on the to dos.</p>
+<p>All parameters to the main class can be passed via puppet code or hiera.
+Hiera 5 module data is provided in the data folder to include
+lookup_options to drive the creation of multiple fragments with the
+tcpwrappers::allows class.</p>
 
 <p>Some examples are presented below showing the purpose of some of the
-indidual parameters to the main class. Those generating rules in
-hosts.allow show how to create those rules similar to those listed in the
-RedHat/CentOS tcpwrappers documentation.</p>
+parameters of classes of the module. Those generating rules in hosts.allow
+show how to create those rules similar to those listed in the RedHat/CentOS
+tcpwrappers documentation.</p>
 
 <h3 id="label-Install+tcpwrappers+onto+a+system+and+configure+default+hosts.allow-2Fhosts.deny+files">Install tcpwrappers onto a system and configure default hosts.allow/hosts.deny files</h3>
 
@@ -230,6 +229,44 @@ RedHat/CentOS tcpwrappers documentation.</p>
   comment          =&gt; &#39;Allow access to all daemons except vsftpd from 192.168.&#39;,
 }</code></pre>
 
+<h3 id="label-Using+the+tcpwrappers-3A-3Aallows+class+to+create+multiple+rules">Using the tcpwrappers::allows class to create multiple rules</h3>
+
+<pre class="code ruby"><code class="ruby"># node.pp
+class { &#39;tcpwrappers&#39;: }
+  class { &#39;tcpwrappers::allows&#39;:
+    rules =&gt; {
+      spec_telnet =&gt; {
+        client_list =&gt; &#39;ALL&#39;,
+        daemon_list =&gt; &#39;telnet&#39;,
+        order       =&gt; &#39;22_telnet_all&#39;,
+        comment     =&gt; &#39;Allow all clients access to telnet&#39;,
+      },
+      spec_vsftpd =&gt; {
+        client_list =&gt; &#39;ALL&#39;,
+        daemon_list =&gt; &#39;vsftpd&#39;,
+        order       =&gt; &#39;21_vsftpd_all&#39;,
+        comment     =&gt; &#39;Allow all clients access to vsftpd&#39;,
+      }
+    }
+  }
+}</code></pre>
+
+<h3 id="label-Using+hiera+data+to+create+multiple+tcpwrappers+rules">Using hiera data to create multiple tcpwrappers rules</h3>
+
+<pre class="code ruby"><code class="ruby">---
+ # node.yaml
+  tcpwrappers::allows::rules:
+    sshd_all
+      client_list: ALL
+      daemon_list: sshd
+      order: 22_sshd_all
+      comment: &#39;Allow all clients access to sshd&#39;
+    vsftpd_all:
+      client_list: ALL
+      daemon_list: vsftpd
+      order: 21_vsftpd_all
+      comment: &#39;Allow all clients access to vsftpd&#39;</code></pre>
+
 <h2 id="label-Reference">Reference</h2>
 
 <p>Generated puppet strings documentation with examples is available from <a
@@ -244,6 +281,9 @@ in the /docs folder.</p>
 Parameters can be passed via class declaration or hiera.</p>
 </li><li>
 <p>tcpwrappers::allow: Class for creating a hosts.allow rule.</p>
+</li><li>
+<p>tcpwrappers::allows: Class for creating multiple hosts.allow rules via
+hiera data files or by passing a hash as a parameter directly.</p>
 </li></ul>
 
 <h3 id="label-Private+Classes">Private Classes</h3>
@@ -279,15 +319,19 @@ Optional[String]                          $allow_template   = &#39;tcpwrappers/a
 Optional[String]                          $comment          = undef,
 Optional[Variant[String,Array[String]]]   $optional_actions = &#39;ALLOW&#39;,</code></pre>
 
+<p>The tcpwrappers::allows class has the following parameters:</p>
+
+<pre class="code ruby"><code class="ruby">Hash $rules = {},</code></pre>
+
 <h2 id="label-Limitations">Limitations</h2>
 
-<p>This file was setup using CentOS 6 and 7 installation and documentation for
-rules. In time, other operating systems will be added as they have been
+<p>This module was setup using CentOS 6 and 7 installation and documentation
+for rules. In time, other operating systems will be added as they have been
 tested. Pull requests with tests are welcome!</p>
 
-<p>This module was written to simplify the creation of hosts.allow and
-hosts.deny rules on a system. However, no validation of the rules is done.
-This is left as an exercise for the reader.</p>
+<p>While this module was written to simplify the creation of hosts.allow and
+hosts.deny rules on a system, no validation of the parameters used to
+create the rules is done. This is left as an exercise for the reader.</p>
 
 <p>Warning: If this module is applied to a system that already has rules in
 hosts.allow and hosts.deny specified, they will be removed by the module.</p>

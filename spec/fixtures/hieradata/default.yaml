@@ -1,2 +1,19 @@
 ---
 # Default key/value pairs
+
+lookup_options:
+  tcpwrappers::allows::rules:
+    merge: hash
+
+
+tcpwrappers::allows::rules:
+  spec_telnet:
+    client_list: ALL
+    daemon_list: telnet
+    order: 22_telnet_all
+    comment: 'Allow all clients access to telnet'
+  spec_vsftpd:
+    client_list: ALL
+    daemon_list: vsftpd
+    order: 21_vsftpd_all
+    comment: 'Allow all clients access to vsftpd'

@@ -35,9 +35,9 @@ Warning: If this class is applied to a system with hosts.allow and/or hosts.deny
 
 ## Usage
 
-All parameters to the main class can be passed via puppet code or hiera. A module data folder for hiera 5 is included. Currently, rule generation via the tcpwrappers::allow class can only be done via puppet code. Adding the ability to drive rules via hiera/create_resources is a high priority item on the to dos.
+All parameters to the main class can be passed via puppet code or hiera. Hiera 5 module data is provided in the data folder to include lookup_options to drive the creation of multiple fragments with the tcpwrappers::allows class.
 
-Some examples are presented below showing the purpose of some of the indidual parameters to the main class. Those generating rules in hosts.allow show how to create those rules similar to those listed in the RedHat/CentOS tcpwrappers documentation.
+Some examples are presented below showing the purpose of some of the parameters of classes of the module. Those generating rules in hosts.allow show how to create those rules similar to those listed in the RedHat/CentOS tcpwrappers documentation.
 
 ### Install tcpwrappers onto a system and configure default hosts.allow/hosts.deny files
 
@@ -163,6 +163,48 @@ tcpwrappers::allow { 'all_except_vsfptd_192_168':
 }
 ```
 
+### Using the tcpwrappers::allows class to create multiple rules
+
+```puppet
+# node.pp
+class { 'tcpwrappers': }
+  class { 'tcpwrappers::allows':
+    rules => {
+      spec_telnet => {
+        client_list => 'ALL',
+        daemon_list => 'telnet',
+        order       => '22_telnet_all',
+        comment     => 'Allow all clients access to telnet',
+      },
+      spec_vsftpd => {
+        client_list => 'ALL',
+        daemon_list => 'vsftpd',
+        order       => '21_vsftpd_all',
+        comment     => 'Allow all clients access to vsftpd',
+      }
+    }
+  }
+}
+```
+
+### Using hiera data to create multiple tcpwrappers rules
+
+```yaml
+ ---
+ # node.yaml
+  tcpwrappers::allows::rules:
+    sshd_all
+      client_list: ALL
+      daemon_list: sshd
+      order: 22_sshd_all
+      comment: 'Allow all clients access to sshd'
+    vsftpd_all:
+      client_list: ALL
+      daemon_list: vsftpd
+      order: 21_vsftpd_all
+      comment: 'Allow all clients access to vsftpd'
+```
+
 ## Reference
 
 Generated puppet strings documentation with examples is available from [https://millerjl1701.github.io/millerjl1701-tcpwrappers/](https://millerjl1701.github.io/millerjl1701-tcpwrappers/)
@@ -173,6 +215,7 @@ The puppet strings documentation is also included in the github repository in th
 
 * tcpwrappers: Main class which installs and configured tcpwrappers. Parameters can be passed via class declaration or hiera.
 * tcpwrappers::allow: Class for creating a hosts.allow rule.
+* tcpwrappers::allows: Class for creating multiple hosts.allow rules via hiera data files or by passing a hash as a parameter directly.
 
 ### Private Classes
 
@@ -209,11 +252,17 @@ Optional[String]                          $comment          = undef,
 Optional[Variant[String,Array[String]]]   $optional_actions = 'ALLOW',
 ```
 
+The tcpwrappers::allows class has the following parameters:
+
+```puppet
+Hash $rules = {},
+```
+
 ## Limitations
 
-This file was setup using CentOS 6 and 7 installation and documentation for rules. In time, other operating systems will be added as they have been tested. Pull requests with tests are welcome!
+This module was setup using CentOS 6 and 7 installation and documentation for rules. In time, other operating systems will be added as they have been tested. Pull requests with tests are welcome!
 
-This module was written to simplify the creation of hosts.allow and hosts.deny rules on a system. However, no validation of the rules is done. This is left as an exercise for the reader.
+While this module was written to simplify the creation of hosts.allow and hosts.deny rules on a system, no validation of the parameters used to create the rules is done. This is left as an exercise for the reader.
 
 Warning: If this module is applied to a system that already has rules in hosts.allow and hosts.deny specified, they will be removed by the module.
 
