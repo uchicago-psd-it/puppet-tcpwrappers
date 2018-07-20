@@ -28,6 +28,7 @@ define tcpwrappers::allow (
   Optional[String]                          $comment          = undef,
   Optional[Variant[String,Array[String]]]   $optional_actions = 'ALLOW',
 ) {
+  include ::tcpwrappers
   concat::fragment { "tcpwrappers_${name}":
     target  => "${tcpwrappers::config_dir}/${tcpwrappers::file_allow}",
     order   => $order,
