@@ -25,7 +25,7 @@ Warning: If this class is applied to a system with hosts.allow and/or hosts.deny
 
 ### What tcpwrappers affects
 
-* Packages: RedHat osfamily: tcpwrappers.
+* Package(s): RedHat osfamily: tcp_wrappers.
 * File: RedHat osfamily: /etc/hosts.allow
 * File: RedHat osfamily: /etc/hosts.deny
 
@@ -239,12 +239,16 @@ The puppet strings documentation is also included in the github repository in th
 ### Public Classes
 
 * tcpwrappers: Main class which installs and configured tcpwrappers. Parameters can be passed via class declaration or hiera.
-* tcpwrappers::allow: Class for creating a hosts.allow rule.
 * tcpwrappers::allows: Class for creating multiple hosts.allow rules via hiera data files or by passing a hash as a parameter directly.
 
 ### Private Classes
 
 * tcpwrappers::config: Class which performs some initial configuration of tcpwrappers. All behavior is driven using parameters to the main class.
+* tcpwrappers::install: Class which performs installation of the tcp_wrappers package. All behavior is driven using parameters to the main class.
+
+### Public Defined Types
+
+* tcpwrappers::allow: Creates a hosts.allow concat fragment.
 
 ### Parameters
 

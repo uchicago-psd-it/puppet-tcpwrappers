@@ -57,181 +57,170 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><div id='filecontents'>
-<h1 id="label-tcpwrappers">tcpwrappers</h1>
+      <div id="content"><div id='filecontents'><h1>tcpwrappers</h1>
 
-<p>master branch: <a
-href="http://travis-ci.org/millerjl1701/millerjl1701-tcpwrappers"><img
-src="https://secure.travis-ci.org/millerjl1701/millerjl1701-tcpwrappers.png?branch=master"></a></p>
+<p>master branch: <a href="http://travis-ci.org/millerjl1701/millerjl1701-tcpwrappers"><img src="https://secure.travis-ci.org/millerjl1701/millerjl1701-tcpwrappers.png?branch=master" alt="Build Status"></a></p>
 
-<h4 id="label-Table+of+Contents">Table of Contents</h4>
-<ol><li>
-<p><a href="#module-description">Module Description - What the module does and
-why it is useful</a></p>
-</li><li>
-<p><a href="#setup">Setup - The basics of getting started with tcpwrappers</a></p>
-<ul><li>
-<p><a href="#what-tcpwrappers-affects">What tcpwrappers affects</a></p>
-</li><li>
-<p><a href="#beginning-with-tcpwrappers">Beginning with tcpwrappers</a></p>
-</li></ul>
-</li><li>
-<p><a href="#usage">Usage - Configuration options and additional
-functionality</a></p>
-</li><li>
-<p><a href="#reference">Reference - An under-the-hood peek at what the module
-is doing and how</a></p>
-</li><li>
-<p><a href="#limitations">Limitations - OS compatibility, etc.</a></p>
-</li><li>
-<p><a href="#development">Development - Guide for contributing to the
-module</a></p>
-</li></ol>
+<h4>Table of Contents</h4>
 
-<h2 id="label-Module+Description">Module Description</h2>
+<ol>
+<li><a href="#module-description">Module Description - What the module does and why it is useful</a></li>
+<li><a href="#setup">Setup - The basics of getting started with tcpwrappers</a>
 
-<p>The tcpwrappers module allows for the installation and configuration of
-access rules.</p>
+<ul>
+<li><a href="#what-tcpwrappers-affects">What tcpwrappers affects</a></li>
+<li><a href="#beginning-with-tcpwrappers">Beginning with tcpwrappers</a></li>
+</ul></li>
+<li><a href="#usage">Usage - Configuration options and additional functionality</a></li>
+<li><a href="#reference">Reference - An under-the-hood peek at what the module is doing and how</a></li>
+<li><a href="#limitations">Limitations - OS compatibility, etc.</a></li>
+<li><a href="#development">Development - Guide for contributing to the module</a></li>
+</ol>
 
-<p>Upon inclusion of the class, it will install the tcpwrappers package and
-set the hosts.allow and hosts.deny files to what was originally included on
-the operating system with the addition of a warning comment at the top of
-the file that the hosts.allow and hosts.deny file are now managed via
-puppet.</p>
+<h2>Module Description</h2>
 
-<p>Warning: If this class is applied to a system with hosts.allow and/or
-hosts.deny rules already present, those rules will be removed.</p>
+<p>The tcpwrappers module allows for the installation and configuration of access rules.</p>
 
-<h2 id="label-Setup">Setup</h2>
+<p>Upon inclusion of the class, it will install the tcpwrappers package and set the hosts.allow and hosts.deny files to what was originally included on the operating system with the addition of a warning comment at the top of the file that the hosts.allow and hosts.deny file are now managed via puppet.</p>
 
-<h3 id="label-What+tcpwrappers+affects">What tcpwrappers affects</h3>
-<ul><li>
-<p>Packages: RedHat osfamily: tcpwrappers.</p>
-</li><li>
-<p>File: RedHat osfamily: /etc/hosts.allow</p>
-</li><li>
-<p>File: RedHat osfamily: /etc/hosts.deny</p>
-</li></ul>
+<p>Warning: If this class is applied to a system with hosts.allow and/or hosts.deny rules already present, those rules will be removed.</p>
 
-<h3 id="label-Beginning+with+tcpwrappers">Beginning with tcpwrappers</h3>
+<h2>Setup</h2>
 
-<p><code>include tcpwrappers</code> should be all that is needed to install
-and configure tcpwrappers to the system defaults.</p>
+<h3>What tcpwrappers affects</h3>
 
-<h2 id="label-Usage">Usage</h2>
+<ul>
+<li>Package(s): RedHat osfamily: tcp_wrappers.</li>
+<li>File: RedHat osfamily: /etc/hosts.allow</li>
+<li>File: RedHat osfamily: /etc/hosts.deny</li>
+</ul>
 
-<p>All parameters to the main class can be passed via puppet code or hiera.
-Hiera 5 module data is provided in the data folder to include
-lookup_options to drive the creation of multiple fragments with the
-tcpwrappers::allows class.</p>
+<h3>Beginning with tcpwrappers</h3>
 
-<p>Some examples are presented below showing the purpose of some of the
-parameters of classes of the module. Those generating rules in hosts.allow
-show how to create those rules similar to those listed in the RedHat/CentOS
-tcpwrappers documentation.</p>
+<p><code>include tcpwrappers</code> should be all that is needed to install and configure tcpwrappers to the system defaults.</p>
 
-<h3 id="label-Install+tcpwrappers+onto+a+system+and+configure+default+hosts.allow-2Fhosts.deny+files">Install tcpwrappers onto a system and configure default hosts.allow/hosts.deny files</h3>
+<h2>Usage</h2>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_include'>include</span> <span class='id identifier rubyid_tcpwrappers'>tcpwrappers</span>
+<p>All parameters to the main class can be passed via puppet code or hiera.</p>
+
+<p>Note: By default when using hiera data, the first encountered instance of the key tcpwrappers::allows::rules will be used. It is possible to generate a merged hash of tcpwrappers::allows::rules from across multiple hiera data files if lookup_options are specified. Please see the examples below for details.</p>
+
+<p>Some examples are presented below showing the purpose of some of the parameters of classes of the module. Those generating rules in hosts.allow show how to create those rules similar to those listed in the RedHat/CentOS tcpwrappers documentation.</p>
+
+<h3>Install tcpwrappers onto a system and configure default hosts.allow/hosts.deny files</h3>
+
+<pre class="code puppet"><code class="puppet">include tcpwrappers
 </code></pre>
 
-<h3 id="label-Install+tcpwrappers+and+ensure+that+the+version+is+always+the+most+recent+package+available">Install tcpwrappers and ensure that the version is always the most recent package available</h3>
+<h3>Install tcpwrappers and ensure that the version is always the most recent package available</h3>
 
-<pre class="code ruby"><code class="ruby">class { &#39;tcpwrappers&#39;:
+<pre class="code puppet"><code class="puppet">class { &#39;tcpwrappers&#39;:
   package_ensure =&gt; &#39;latest&#39;,
-}</code></pre>
+}
+</code></pre>
 
 <p>or via hiera:</p>
 
-<pre class="code ruby"><code class="ruby">tcpwrappers::package_ensure: &#39;latest&#39;</code></pre>
+<pre class="code yaml"><code class="yaml">tcpwrappers::package_ensure: &#39;latest&#39;
+</code></pre>
 
-<h3 id="label-Install+tcpwrappers+and+include+-27ALL+-3A+ALL-27+in+hosts.deny+to+block+all+specifically+allowed+access">Install tcpwrappers and include &#39;ALL : ALL&#39; in hosts.deny to block all specifically allowed access</h3>
+<h3>Install tcpwrappers and include &#39;ALL : ALL&#39; in hosts.deny to block all specifically allowed access</h3>
 
-<pre class="code ruby"><code class="ruby">class { &#39;tcpwrappers&#39;:
+<pre class="code puppet"><code class="puppet">class { &#39;tcpwrappers&#39;:
   default_deny =&gt; true,
-}</code></pre>
+}
+</code></pre>
 
-<h3 id="label-Install+tcpwrappers+and+allow+traffic+to+all+services+from+the+localhost+IPv4-2F6+address-3A">Install tcpwrappers and allow traffic to all services from the localhost IPv4/6 address:</h3>
+<h3>Install tcpwrappers and allow traffic to all services from the localhost IPv4/6 address:</h3>
 
-<pre class="code ruby"><code class="ruby">class { &#39;tcpwrappers&#39;:
+<pre class="code puppet"><code class="puppet">class { &#39;tcpwrappers&#39;:
     allow_localhost_ipv4 =&gt; true,
     allow_localhost_ipv6 =&gt; true,
-}</code></pre>
+}
+</code></pre>
 
-<h3 id="label-Install+tcpwrappers+and+allow+traffic+to+sshd+from+all+clients">Install tcpwrappers and allow traffic to sshd from all clients</h3>
+<h3>Install tcpwrappers and allow traffic to sshd from all clients</h3>
 
-<pre class="code ruby"><code class="ruby">class{ &#39;tcpwrappers&#39;:
+<pre class="code puppet"><code class="puppet">class{ &#39;tcpwrappers&#39;:
   allow_sshd_all =&gt; true,
-}</code></pre>
+}
+</code></pre>
 
-<h3 id="label-Access+rule+to+allow+all+clients+access+to+all+daemons">Access rule to allow all clients access to all daemons</h3>
+<h3>Access rule to allow all clients access to all daemons</h3>
 
-<pre class="code ruby"><code class="ruby">tcpwrappers::allow { &#39;all_all_allow&#39;:
+<pre class="code puppet"><code class="puppet">tcpwrappers::allow { &#39;all_all_allow&#39;:
   client_list =&gt; &#39;ALL&#39;,
   daemon_list =&gt; &#39;ALL&#39;,
   order       =&gt; &#39;10_all_all_allow&#39;,
   comment     =&gt; &#39;Allow all clients access to all daemons&#39;,
-}</code></pre>
+}
+</code></pre>
 
-<h3 id="label-Allow+all+clients+access+to+the+sshd+and+httpd+daemons">Allow all clients access to the sshd and httpd daemons</h3>
+<h3>Allow all clients access to the sshd and httpd daemons</h3>
 
-<pre class="code ruby"><code class="ruby">tcpwrappers::allow { &#39;all_sshd_httpd&#39;:
+<pre class="code puppet"><code class="puppet">tcpwrappers::allow { &#39;all_sshd_httpd&#39;:
   client_list =&gt; &#39;ALL&#39;,
   daemon_list =&gt; [ &#39;sshd&#39;, &#39;httpd&#39;, ],
   order       =&gt; &#39;66_all_sshd_httpd&#39;,
   comment     =&gt; &#39;Allow all clients access to sshd and httpd&#39;,
-}</code></pre>
+}
+</code></pre>
 
-<h3 id="label-Allow+access+to+snmpd+from+two+specified+client+definitions">Allow access to snmpd from two specified client definitions</h3>
+<h3>Allow access to snmpd from two specified client definitions</h3>
 
-<pre class="code ruby"><code class="ruby">tcpwrappers::allow { &#39;example_snmpd&#39;:
+<pre class="code puppet"><code class="puppet">tcpwrappers::allow { &#39;example_snmpd&#39;:
   client_list =&gt; [ &#39;.example.com&#39;, &#39;192.168.&#39;, ],
   daemon_list =&gt; &#39;snmpd&#39;,
   order       =&gt; &#39;161_example_snmpd&#39;,
   comment     =&gt; &#39;Allow access to snmpd from the example.com domain and IP addresses&#39;,
-}</code></pre>
+}
+</code></pre>
 
-<h3 id="label-Allow+traffic+to+sshd+and+httpd+from+the+example.com+domain">Allow traffic to sshd and httpd from the example.com domain</h3>
+<h3>Allow traffic to sshd and httpd from the example.com domain</h3>
 
-<pre class="code ruby"><code class="ruby">tcpwrappers::allow { &#39;example_sshd_httpd&#39;:
+<pre class="code puppet"><code class="puppet">tcpwrappers::allow { &#39;example_sshd_httpd&#39;:
   client_list =&gt; [ &#39;.example.com&#39;, &#39;192.168.&#39;, ],
   daemon_list =&gt; [ &#39;sshd&#39;, &#39;httpd&#39;, ],
   order       =&gt; &#39;22_example_sshd_httpd&#39;,
   comment     =&gt; &#39;Allow traffic to sshd and httpd from the example.com domain and IP addresses&#39;,
-}</code></pre>
+}
+</code></pre>
 
-<h3 id="label-Rule+for+logging+and+denying+access+to+sshd+from+example.com">Rule for logging and denying access to sshd from example.com</h3>
+<h3>Rule for logging and denying access to sshd from example.com</h3>
 
-<pre class="code ruby"><code class="ruby">tcpwrappers::allow { &#39;example_sshd_deny&#39;:
+<pre class="code puppet"><code class="puppet">tcpwrappers::allow { &#39;example_sshd_deny&#39;:
   client_list      =&gt; &#39;.example.com&#39;,
   daemon_list      =&gt; &#39;sshd&#39;,
   order            =&gt; &#39;22_example_sshd_deny&#39;,
   comment          =&gt; &#39;Log and deny access to sshd from example.com&#39;,
   optional_actions =&gt; [ &#39;spawn /bin/echo `/bin/date` access denied&gt;&gt;/var/log/sshd.log&#39;, &#39;DENY&#39;, ],
-}</code></pre>
+}
+</code></pre>
 
-<h3 id="label-Allow+access+to+sshd+from+example.com+except+for+badactor.example.com">Allow access to sshd from example.com except for badactor.example.com</h3>
+<h3>Allow access to sshd from example.com except for badactor.example.com</h3>
 
-<pre class="code ruby"><code class="ruby">tcpwrappers::allow { &#39;example_sshd_no_badactor&#39;:
+<pre class="code puppet"><code class="puppet">tcpwrappers::allow { &#39;example_sshd_no_badactor&#39;:
   client_list =&gt; &#39;.example.com EXCEPT badactor.example.com&#39;,
   daemon_list =&gt; &#39;sshd&#39;,
   order       =&gt; &#39;22_example_sshd_no_badactor&#39;,
   comment     =&gt; &#39;Allow traffic to sshd from example.com domain except from badactor.example.com&#39;,
-}</code></pre>
+}
+</code></pre>
 
-<h3 id="label-Allow+access+to+all+daemons+except+vsftd+from+192.168.+without+an+action+specified">Allow access to all daemons except vsftd from 192.168. without an action specified</h3>
+<h3>Allow access to all daemons except vsftd from 192.168. without an action specified</h3>
 
-<pre class="code ruby"><code class="ruby">tcpwrappers::allow { &#39;all_except_vsfptd_192_168&#39;:
+<pre class="code puppet"><code class="puppet">tcpwrappers::allow { &#39;all_except_vsfptd_192_168&#39;:
   client_list      =&gt; &#39;192.168.&#39;,
   daemon_list      =&gt; &#39;ALL EXCEPT vsftpd&#39;,
   optional_actions =&gt; &#39;&#39;,
   order            =&gt; &#39;10_except_vsftpd_192_186&#39;,
   comment          =&gt; &#39;Allow access to all daemons except vsftpd from 192.168.&#39;,
-}</code></pre>
+}
+</code></pre>
 
-<h3 id="label-Using+the+tcpwrappers-3A-3Aallows+class+to+create+multiple+rules">Using the tcpwrappers::allows class to create multiple rules</h3>
+<h3>Using the tcpwrappers::allows class to create multiple rules</h3>
 
-<pre class="code ruby"><code class="ruby"># node.pp
+<pre class="code puppet"><code class="puppet"># node.pp
 class { &#39;tcpwrappers&#39;: }
   class { &#39;tcpwrappers::allows&#39;:
     rules =&gt; {
@@ -249,11 +238,12 @@ class { &#39;tcpwrappers&#39;: }
       }
     }
   }
-}</code></pre>
+}
+</code></pre>
 
-<h3 id="label-Using+hiera+data+to+create+multiple+tcpwrappers+rules">Using hiera data to create multiple tcpwrappers rules</h3>
+<h3>Using hiera data to create multiple tcpwrappers rules with the default behavior</h3>
 
-<pre class="code ruby"><code class="ruby">---
+<pre class="code yaml"><code class="yaml"> ---
  # node.yaml
   tcpwrappers::allows::rules:
     sshd_all
@@ -265,38 +255,63 @@ class { &#39;tcpwrappers&#39;: }
       client_list: ALL
       daemon_list: vsftpd
       order: 21_vsftpd_all
-      comment: &#39;Allow all clients access to vsftpd&#39;</code></pre>
+      comment: &#39;Allow all clients access to vsftpd&#39;
+</code></pre>
 
-<h2 id="label-Reference">Reference</h2>
+<h3>Using hiera data to create multiple tcpwrappers rules with a merged hash from multiple files</h3>
 
-<p>Generated puppet strings documentation with examples is available from <a
-href="https://millerjl1701.github.io/millerjl1701-tcpwrappers/">millerjl1701.github.io/millerjl1701-tcpwrappers/</a></p>
+<pre class="code yaml"><code class="yaml"> ---
+ # node.yaml
+  tcpwrappers::allows::rules:
+    httpd_all:
+      client_list: ALL
+      daemon_list: httpd
+      order: 80_httpd_all
+      comment: &#39;Allow all clients access to httpd&#39;
 
-<p>The puppet strings documentation is also included in the github repository
-in the /docs folder.</p>
+# common.yaml
+lookup_options:
+  tcpwrappers::allows::rules:
+    merge: hash
+tcpwrappers::allows::rules:
+    sshd_all
+      client_list: ALL
+      daemon_list: sshd
+      order: 22_sshd_all
+      comment: &#39;Allow all clients access to sshd&#39;
+</code></pre>
 
-<h3 id="label-Public+Classes">Public Classes</h3>
-<ul><li>
-<p>tcpwrappers: Main class which installs and configured tcpwrappers.
-Parameters can be passed via class declaration or hiera.</p>
-</li><li>
-<p>tcpwrappers::allow: Class for creating a hosts.allow rule.</p>
-</li><li>
-<p>tcpwrappers::allows: Class for creating multiple hosts.allow rules via
-hiera data files or by passing a hash as a parameter directly.</p>
-</li></ul>
+<h2>Reference</h2>
 
-<h3 id="label-Private+Classes">Private Classes</h3>
-<ul><li>
-<p>tcpwrappers::config: Class which performs some initial configuration of
-tcpwrappers. All behavior is driven using parameters to the main class.</p>
-</li></ul>
+<p>Generated puppet strings documentation with examples is available from <a href="https://millerjl1701.github.io/millerjl1701-tcpwrappers/">https://millerjl1701.github.io/millerjl1701-tcpwrappers/</a></p>
 
-<h3 id="label-Parameters">Parameters</h3>
+<p>The puppet strings documentation is also included in the github repository in the /docs folder.</p>
+
+<h3>Public Classes</h3>
+
+<ul>
+<li>tcpwrappers: Main class which installs and configured tcpwrappers. Parameters can be passed via class declaration or hiera.</li>
+<li>tcpwrappers::allows: Class for creating multiple hosts.allow rules via hiera data files or by passing a hash as a parameter directly.</li>
+</ul>
+
+<h3>Private Classes</h3>
+
+<ul>
+<li>tcpwrappers::config: Class which performs some initial configuration of tcpwrappers. All behavior is driven using parameters to the main class.</li>
+<li>tcpwrappers::install: Class which performs installation of the tcp_wrappers package. All behavior is driven using parameters to the main class.</li>
+</ul>
+
+<h3>Public Defined Types</h3>
+
+<ul>
+<li>tcpwrappers::allow: Creates a hosts.allow concat fragment.</li>
+</ul>
+
+<h3>Parameters</h3>
 
 <p>The tcpwrappers::init class has the following parameters:</p>
 
-<pre class="code ruby"><code class="ruby">Boolean         $allow_header         = true,
+<pre class="code puppet"><code class="puppet">Boolean         $allow_header         = true,
 String          $allow_header_source  = &quot;tcpwrappers/allow_header_${::operatingsystem}&quot;,
 Boolean         $allow_localhost_ipv4 = false,
 Boolean         $allow_localhost_ipv6 = false,
@@ -308,47 +323,39 @@ String          $deny_header_source   = &quot;tcpwrappers/deny_header_${::operat
 String          $file_allow           = &#39;hosts.allow&#39;,
 String          $file_deny            = &#39;hosts.deny&#39;,
 String          $package_ensure       = &#39;present&#39;,
-String          $package_name         = &#39;tcp_wrappers&#39;,</code></pre>
+String          $package_name         = &#39;tcp_wrappers&#39;,
+</code></pre>
 
 <p>The tcpwrappers::allow class has the following parameters:</p>
 
-<pre class="code ruby"><code class="ruby">Variant[String,Array[String]]             $client_list,
+<pre class="code puppet"><code class="puppet">Variant[String,Array[String]]             $client_list,
 Variant[String,Array[String]]             $daemon_list,
 String                                    $order,
 Optional[String]                          $allow_template   = &#39;tcpwrappers/allow.erb&#39;,
 Optional[String]                          $comment          = undef,
-Optional[Variant[String,Array[String]]]   $optional_actions = &#39;ALLOW&#39;,</code></pre>
+Optional[Variant[String,Array[String]]]   $optional_actions = &#39;ALLOW&#39;,
+</code></pre>
 
 <p>The tcpwrappers::allows class has the following parameters:</p>
 
-<pre class="code ruby"><code class="ruby">Hash $rules = {},</code></pre>
+<pre class="code puppet"><code class="puppet">Hash $rules = {},
+</code></pre>
 
-<h2 id="label-Limitations">Limitations</h2>
+<h2>Limitations</h2>
 
-<p>This module was setup using CentOS 6 and 7 installation and documentation
-for rules. In time, other operating systems will be added as they have been
-tested. Pull requests with tests are welcome!</p>
+<p>This module was setup using CentOS 6 and 7 installation and documentation for rules. In time, other operating systems will be added as they have been tested. Pull requests with tests are welcome!</p>
 
-<p>While this module was written to simplify the creation of hosts.allow and
-hosts.deny rules on a system, no validation of the parameters used to
-create the rules is done. This is left as an exercise for the reader.</p>
+<p>While this module was written to simplify the creation of hosts.allow and hosts.deny rules on a system, no validation of the parameters used to create the rules is done. This is left as an exercise for the reader.</p>
 
-<p>Warning: If this module is applied to a system that already has rules in
-hosts.allow and hosts.deny specified, they will be removed by the module.</p>
+<p>Warning: If this module is applied to a system that already has rules in hosts.allow and hosts.deny specified, they will be removed by the module.</p>
 
-<h2 id="label-Development">Development</h2>
+<h2>Development</h2>
 
-<p>Please see the <a href="CONTRIBUTING.md">CONTRIBUTING document</a> for
-information on how to get started developing code and submit a pull request
-for this module. While written in an opinionated fashion at the start, over
-time this can become less and less the case.</p>
+<p>Please see the <a href="CONTRIBUTING.md">CONTRIBUTING document</a> for information on how to get started developing code and submit a pull request for this module. While written in an opinionated fashion at the start, over time this can become less and less the case.</p>
 
-<h3 id="label-Contributors">Contributors</h3>
+<h3>Contributors</h3>
 
-<p>To see who is involved with this module, see the <a
-href="https://github.com/millerjl1701/millerjl1701-tcpwrappers/graphs/contributors">GitHub
-list of contributors</a> or the <a href="CONTRIBUTORS">CONTRIBUTORS
-document</a>.</p>
+<p>To see who is involved with this module, see the <a href="https://github.com/millerjl1701/millerjl1701-tcpwrappers/graphs/contributors">GitHub list of contributors</a> or the <a href="CONTRIBUTORS">CONTRIBUTORS document</a>.</p>
 </div></div>
 
       <div id="footer">

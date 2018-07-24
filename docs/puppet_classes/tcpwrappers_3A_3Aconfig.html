@@ -74,8 +74,7 @@
 <h2>Overview</h2>
 <div class="docstring">
   <div class="discussion">
-    
-<p>This class is called from tcpwrappers class to configure some basic pieces.</p>
+    <p>This class is called from tcpwrappers class to configure some basic pieces.</p>
 
   </div>
 </div>
@@ -148,12 +147,14 @@
 61
 62
 63
-64</pre>
+64
+65</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/config.pp', line 5</span>
 
 class tcpwrappers::config {
+  assert_private()
   concat { &quot;${tcpwrappers::config_dir}/${tcpwrappers::file_allow}&quot;:
     ensure         =&gt; &#39;present&#39;,
     ensure_newline =&gt; true,

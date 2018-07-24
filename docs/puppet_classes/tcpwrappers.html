@@ -77,14 +77,9 @@
 <h2>Overview</h2>
 <div class="docstring">
   <div class="discussion">
-    
-<h1 id="label-Class-3A+tcpwrappers">Class: tcpwrappers</h1>
+    <h1>Class: tcpwrappers</h1>
 
-<p>Main class which will install tcpwrappers and begin management of
-hosts.allow and hosts.deny. The hosts.allow and hosts.deny files are set up
-by the class to emulate the files as they would be installed initially. Any
-tcpwrappers rules already existing in those files will be removed by the
-class when first applied to a system.</p>
+<p>Main class which will install tcpwrappers and begin management of hosts.allow and hosts.deny. The hosts.allow and hosts.deny files are set up by the class to emulate the files as they would be installed initially. Any tcpwrappers rules already existing in those files will be removed by the class when first applied to a system.</p>
 
   </div>
 </div>
@@ -112,8 +107,7 @@ class when first applied to a system.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Whether or not to include a header for hosts.allow with order of 0_header.</p>
+        <div class='inline'><p>Whether or not to include a header for hosts.allow  with order of 0_header.</p>
 </div>
       
     </li>
@@ -130,12 +124,7 @@ class when first applied to a system.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>File to use as header for hosts.allow in the form of
-&lt;modulename&gt;/path/to/file which is then used by the source parameter
-of the fragment. As such, “files” should not appear in the path. This
-allows for replacing the module provided header with a locally generated
-one.</p>
+        <div class='inline'><p>File to use as header for hosts.allow in the form of <modulename>/path/to/file which is then used by the source parameter of the fragment. As such, &quot;files&quot; should not appear in the path. This allows for replacing the module provided header with a locally generated one.</p>
 </div>
       
     </li>
@@ -152,9 +141,7 @@ one.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Include the concat fragment to allow localhost ipv4 address (127.0.0.1) to
-access all daemons.</p>
+        <div class='inline'><p>Include the concat fragment to allow localhost ipv4 address (127.0.0.1) to access all daemons.</p>
 </div>
       
     </li>
@@ -171,9 +158,7 @@ access all daemons.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Include the concat fragment to allow localhost ipv6 address (::1) to access
-all daemons.</p>
+        <div class='inline'><p>Include the concat fragment to allow localhost ipv6 address (::1) to access all daemons.</p>
 </div>
       
     </li>
@@ -190,9 +175,7 @@ all daemons.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Specifies the directory for where the tcpwrappers configuration files are
-located.</p>
+        <div class='inline'><p>Specifies the directory for where the tcpwrappers configuration files are located.</p>
 </div>
       
     </li>
@@ -209,8 +192,7 @@ located.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Whether or not to include &#39;ALL : ALL&#39; in the hosts.deny file.</p>
+        <div class='inline'><p>Whether or not to include &#39;ALL : ALL&#39; in the hosts.deny file.</p>
 </div>
       
     </li>
@@ -227,9 +209,7 @@ located.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Whether or not to include a header for hosts.deny with order of
-ZZ_deny_all.</p>
+        <div class='inline'><p>Whether or not to include a header for hosts.deny with order of ZZ_deny_all.</p>
 </div>
       
     </li>
@@ -246,12 +226,7 @@ ZZ_deny_all.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>File to use as header for hosts.deny in the for of
-&lt;modulename&gt;/path/to/file which is then used by the source parameter
-of the fragment. As such, “files” should not appear in the path. This
-allows for replacing the module provided header with a locally generated
-one.</p>
+        <div class='inline'><p>File to use as header for hosts.deny in the for of <modulename>/path/to/file which is then used by the source parameter of the fragment. As such, &quot;files&quot; should not appear in the path. This allows for replacing the module provided header with a locally generated one.</p>
 </div>
       
     </li>
@@ -268,8 +243,7 @@ one.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Name for the hosts.allow file configuration file.</p>
+        <div class='inline'><p>Name for the hosts.allow file configuration file.</p>
 </div>
       
     </li>
@@ -286,8 +260,7 @@ one.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Name for the hosts.deny configuration file.</p>
+        <div class='inline'><p>Name for the hosts.deny configuration file.</p>
 </div>
       
     </li>
@@ -304,10 +277,7 @@ one.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Whether to install the tcpwrappers package, and what version. Suggested
-values: &#39;present&#39;, &#39;latest&#39;, or a specific version number.
-No validation of the String provided is done.</p>
+        <div class='inline'><p>Whether to install the tcpwrappers package, and what version. Suggested values: &#39;present&#39;, &#39;latest&#39;, or a specific version number. No validation of the String provided is done.</p>
 </div>
       
     </li>
@@ -324,8 +294,7 @@ No validation of the String provided is done.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Specified the name of the package to install.</p>
+        <div class='inline'><p>Specified the name of the package to install.</p>
 </div>
       
     </li>

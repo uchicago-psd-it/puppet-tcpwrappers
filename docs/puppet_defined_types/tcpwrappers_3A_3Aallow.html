@@ -75,8 +75,7 @@
 <h2>Overview</h2>
 <div class="docstring">
   <div class="discussion">
-    
-<h1 id="label-Define+tcpwrappers-3A-3Aallow">Define tcpwrappers::allow</h1>
+    <h1>Define tcpwrappers::allow</h1>
 
 <p>Defined type which specifies and creates concat hosts.allow fragment</p>
 
@@ -88,8 +87,7 @@
     <p class="tag_title">Examples:</p>
     
       
-        <p class="example_title"><div class='inline'>
-<p>Creating a tcpwrappers rule in hosts.allow</p>
+        <p class="example_title"><div class='inline'><p>Creating a tcpwrappers rule in hosts.allow</p>
 </div></p>
       
       <pre class="example code"><code>tcpwrappers::allow { &#39;allow sshd&#39;:
@@ -113,10 +111,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>A list of hosts affected by the rule. Operators can also be included in the
-string as appropriate. No validation is done to ensure that the are valid
-for tcpwrappers.</p>
+        <div class='inline'><p>A list of hosts affected by the rule. Operators can also be included in the string as appropriate. No validation is done to ensure that the are valid for tcpwrappers.</p>
 </div>
       
     </li>
@@ -131,10 +126,7 @@ for tcpwrappers.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>A list of daemons affected by the rule. Operators can also be included in
-the string as appropriate. No validation is done to ensure that they are
-valid for tcpwrappers.</p>
+        <div class='inline'><p>A list of daemons affected by the rule. Operators can also be included in the string as appropriate. No validation is done to ensure that they are valid for tcpwrappers.</p>
 </div>
       
     </li>
@@ -149,8 +141,7 @@ valid for tcpwrappers.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Alphanumeric string that controls the ordering of concat fragments.</p>
+        <div class='inline'><p>Alphanumeric string that controls the ordering of concat fragments.</p>
 </div>
       
     </li>
@@ -167,9 +158,7 @@ valid for tcpwrappers.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>Template to use for fragment. Allows one to specify a different locally
-developed template instead of the module provided one.</p>
+        <div class='inline'><p>Template to use for fragment. Allows one to specify a different locally developed template instead of the module provided one.</p>
 </div>
       
     </li>
@@ -186,10 +175,7 @@ developed template instead of the module provided one.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>A comment to be included in the concat fragment to allow for readibility of
-hosts.allow. The module template automatically places a “#” character in
-front of the comment.</p>
+        <div class='inline'><p>A comment to be included in the concat fragment to allow for readibility of hosts.allow. The module template automatically places a &quot;#&quot; character in front of the comment.</p>
 </div>
       
     </li>
@@ -206,10 +192,7 @@ front of the comment.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>An optional acction or list of actions to be carried out when the rule is
-hit. This defaults to allow; however, it can be overridden with an empty
-string to remove completely the options from the rule.</p>
+        <div class='inline'><p>An optional acction or list of actions to be carried out when the rule is hit. This defaults to allow; however, it can be overridden with an empty string to remove completely the options from the rule.</p>
 </div>
       
     </li>
@@ -237,7 +220,8 @@ string to remove completely the options from the rule.</p>
 33
 34
 35
-36</pre>
+36
+37</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/allow.pp', line 23</span>
@@ -250,6 +234,7 @@ define tcpwrappers::allow (
   Optional[String]                          $comment          = undef,
   Optional[Variant[String,Array[String]]]   $optional_actions = &#39;ALLOW&#39;,
 ) {
+  include ::tcpwrappers
   concat::fragment { &quot;tcpwrappers_${name}&quot;:
     target  =&gt; &quot;${tcpwrappers::config_dir}/${tcpwrappers::file_allow}&quot;,
     order   =&gt; $order,
