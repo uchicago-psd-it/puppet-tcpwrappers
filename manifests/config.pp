@@ -3,7 +3,7 @@
 # This class is called from tcpwrappers class to configure some basic pieces.
 #
 class tcpwrappers::config {
-  include ::tcpwrappers
+  assert_private()
   concat { "${tcpwrappers::config_dir}/${tcpwrappers::file_allow}":
     ensure         => 'present',
     ensure_newline => true,
