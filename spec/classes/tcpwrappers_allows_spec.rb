@@ -2,11 +2,36 @@ require 'spec_helper'
 
 describe 'tcpwrappers::allows', :type => :class do
   context 'on all operating systems' do
-    context 'params passed via hiera' do
+    context 'with custom rules param' do
       let(:facts) do
         {
           :osfamily             => 'RedHat',
           :operatingsystem      => 'CentOS',
+        }
+      end
+
+      let :params do
+        {
+          rules: {
+            'spec_httpd' => {
+              'client_list' => 'ALL',
+              'daemon_list' => 'httpd',
+              'order'       => '80_httpd_all',
+              'comment'     => 'Allow all clients access to httpd',
+            },
+            'spec_telnet' => {
+              'client_list' => 'ALL',
+              'daemon_list' => 'ALL',
+              'order'       => '22_telnet_all',
+              'comment'     => 'Allow all clients access to telnet',
+            },
+            'spec_vsftpd' => {
+              'client_list' => 'ALL',
+              'daemon_list' => 'vsftpd',
+              'order'       => '21_vsftpd_all',
+              'comment'     => 'Allow all clients access to vsftpd',
+            },
+          },
         }
       end
 
