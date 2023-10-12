@@ -13,7 +13,7 @@ class tcpwrappers::config {
     order          => 'alpha',
   }
   concat { "${tcpwrappers::config_dir}/${tcpwrappers::file_deny}":
-    ensure         => 'present',
+    ensure         => $tcpwrappers::file_deny_ensure,
     ensure_newline => true,
     owner          => 'root',
     group          => 'root',
