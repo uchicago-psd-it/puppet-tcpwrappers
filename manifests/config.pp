@@ -12,13 +12,15 @@ class tcpwrappers::config {
     mode           => '0644',
     order          => 'alpha',
   }
-  concat { "${tcpwrappers::config_dir}/${tcpwrappers::file_deny}":
-    ensure         => $tcpwrappers::file_deny_ensure,
-    ensure_newline => true,
-    owner          => $tcpwrappers::file_owner,
-    group          => $tcpwrappers::file_group,
-    mode           => '0644',
-    order          => 'alpha',
+  unless $tcpwrappers::file_deny == $tcpwrappers::file_allow {
+    concat { "${tcpwrappers::config_dir}/${tcpwrappers::file_deny}":
+      ensure         => $tcpwrappers::file_deny_ensure,
+      ensure_newline => true,
+      owner          => $tcpwrappers::file_owner,
+      group          => $tcpwrappers::file_group,
+      mode           => '0644',
+      order          => 'alpha',
+    }
   }
   if $tcpwrappers::allow_header {
     concat::fragment { 'tcpwrappers_allow_header':
