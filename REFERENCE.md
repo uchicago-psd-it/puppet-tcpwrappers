@@ -30,7 +30,7 @@ Main class which will install tcpwrappers and begin management of hosts.allow an
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include tcpwrappers
@@ -248,4 +248,3 @@ Data type: `Optional[Variant[String,Array[String]]]`
 An optional acction or list of actions to be carried out when the rule is hit. This defaults to allow; however, it can be overridden with an empty string to remove completely the options from the rule.
 
 Default value: 'ALLOW'
-

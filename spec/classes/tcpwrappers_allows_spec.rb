@@ -51,7 +51,7 @@ describe 'tcpwrappers::allows', :type => :class do
               'target' => '/etc/hosts.allow',
               'order' => '80_httpd_all',
       ) }
-  
+
       it { is_expected.to contain_concat__fragment('tcpwrappers_spec_vsftpd').with(
               'target' => '/etc/hosts.allow',
               'order' => '21_vsftpd_all',
