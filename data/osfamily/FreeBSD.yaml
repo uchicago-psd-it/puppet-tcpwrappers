@@ -1,2 +1,2 @@
 ---
-tcpwrappers::deny_file_ensure: false
+tcpwrappers::deny_file_ensure: absent

@@ -22,20 +22,20 @@
 # @param package_name Specified the name of the package to install.
 #
 class tcpwrappers (
-  Boolean         $allow_header         = true,
-  String          $allow_header_source  = "tcpwrappers/allow_header_${facts}['os']['family']",
-  Boolean         $allow_localhost_ipv4 = false,
-  Boolean         $allow_localhost_ipv6 = false,
-  Boolean         $allow_sshd_all       = false,
-  String          $config_dir           = '/etc',
-  Boolean         $default_deny         = false,
-  Boolean         $deny_header          = true,
-  String          $deny_header_source   = "tcpwrappers/deny_header_${facts}['os']['family']",
-  String          $file_allow           = 'hosts.allow',
-  String          $file_deny            = 'hosts.deny',
-  Boolean         $file_deny_ensure     = true,
-  String          $package_ensure       = 'present',
-  String          $package_name         = 'tcp_wrappers',
+  Boolean                  $allow_header         = true,
+  String                   $allow_header_source  = "tcpwrappers/allow_header_${facts}['os']['family']",
+  Boolean                  $allow_localhost_ipv4 = false,
+  Boolean                  $allow_localhost_ipv6 = false,
+  Boolean                  $allow_sshd_all       = false,
+  String                   $config_dir           = '/etc',
+  Boolean                  $default_deny         = false,
+  Boolean                  $deny_header          = true,
+  String                   $deny_header_source   = "tcpwrappers/deny_header_${facts}['os']['family']",
+  String                   $file_allow           = 'hosts.allow',
+  String                   $file_deny            = 'hosts.deny',
+  Enum['absent','present'] $file_deny_ensure     = 'present',
+  String                   $package_ensure       = 'present',
+  String                   $package_name         = 'tcp_wrappers',
   ) {
   case $facts['os']['family'] {
     'RedHat': {
