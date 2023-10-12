@@ -23,29 +23,33 @@
 #
 class tcpwrappers (
   Boolean         $allow_header         = true,
-  String          $allow_header_source  = "tcpwrappers/allow_header_${::operatingsystem}",
+  String          $allow_header_source  = "tcpwrappers/allow_header_${facts}['os']['family']",
   Boolean         $allow_localhost_ipv4 = false,
   Boolean         $allow_localhost_ipv6 = false,
   Boolean         $allow_sshd_all       = false,
   String          $config_dir           = '/etc',
   Boolean         $default_deny         = false,
   Boolean         $deny_header          = true,
-  String          $deny_header_source   = "tcpwrappers/deny_header_${::operatingsystem}",
+  String          $deny_header_source   = "tcpwrappers/deny_header_${facts}['os']['family']",
   String          $file_allow           = 'hosts.allow',
   String          $file_deny            = 'hosts.deny',
+  Boolean         $file_deny_ensure     = true,
   String          $package_ensure       = 'present',
   String          $package_name         = 'tcp_wrappers',
   ) {
-  case $::operatingsystem {
-    'RedHat', 'CentOS': {
+  case $facts['os']['family'] {
+    'RedHat': {
       contain tcpwrappers::install
       contain tcpwrappers::config
 
       Class['tcpwrappers::install']
       -> Class['tcpwrappers::config']
     }
+    'FreeBSD': {
+      contain tcpwrappers::config
+    }
     default: {
-      fail("${::operatingsystem} not supported")
+      fail("${facts}['os']['name'] not supported")
     }
   }
 }

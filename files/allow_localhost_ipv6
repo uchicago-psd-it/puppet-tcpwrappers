@@ -1,3 +1,2 @@
 # allow localhost ipv6
-ALL : [::1] : ALLOW
-
+ALL : [::1] : allow
