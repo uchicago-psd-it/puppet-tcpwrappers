@@ -1,0 +1,38 @@
+---
+default_language_version:
+  ruby: 3.2.2
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.2.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+  - repo: https://github.com/chriskuehl/puppet-pre-commit-hooks.git
+    rev: v2.2.0
+    hooks:
+      - id: epp-validate
+      - id: erb-validate
+      - id: puppet-lint
+        args:
+          - --fail-on-warnings
+          - --no-80chars-check
+          - --no-documentation-check
+          - --no-puppet_url_without_modules-check
+      - id: puppet-validate
+      - id: r10k-validate
+      - id: ruby-validate
+  - repo: https://github.com/rubocop/rubocop
+    rev: v1.56.4
+    hooks:
+      - id: rubocop
+        additional_dependencies: ['rubocop-performance', 'rubocop-rspec', 'rubocop-i18n']
+#  - repo: https://github.com/jumanjihouse/pre-commit-hooks
+#    rev: 3.0.0
+#    hooks:
+#      - id: reek
+#      - id: rubocop
+  - repo: 'https://github.com/adrienverge/yamllint'
+    rev: v1.32.0
+    hooks:
+      - id: 'yamllint'
