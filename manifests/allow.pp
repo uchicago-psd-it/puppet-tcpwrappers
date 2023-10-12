@@ -26,7 +26,7 @@ define tcpwrappers::allow (
   String                                    $order,
   Optional[String]                          $allow_template   = 'tcpwrappers/allow.erb',
   Optional[String]                          $comment          = undef,
-  Optional[Variant[String,Array[String]]]   $optional_actions = 'ALLOW',
+  Optional[Variant[String,Array[String]]]   $optional_actions = 'allow',
 ) {
   include ::tcpwrappers
   concat::fragment { "tcpwrappers_${name}":

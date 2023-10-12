@@ -6,8 +6,7 @@
 <% if @optional_actions.is_a?(Array) -%>
 <%= daemon %> : <%= client -%>
 <% @optional_actions.each do |action| -%>
- \
-	: <%= action -%>
+ : <%= action -%>
 <% end %>
 <% else -%>
 <%= daemon %> : <%= client %><% unless @optional_actions.empty? -%> : <%= @optional_actions %><% end -%>
@@ -17,8 +16,7 @@
 <% if @optional_actions.is_a?(Array) -%>
 <%= daemon %> : <%= @client_list -%>
 <% @optional_actions.each do |action| -%>
- \
-	: <%= action -%>
+ : <%= action -%>
 <% end %>
 <% else -%>
 <%= daemon %> : <%= @client_list %><% unless @optional_actions.empty? -%> : <%= @optional_actions %><% end -%>
@@ -31,8 +29,7 @@
 <% if @optional_actions.is_a?(Array) -%>
 <%= @daemon_list %> : <%= client -%>
 <% @optional_actions.each do |action| -%>
- \
-	: <%= action -%>
+ : <%= action -%>
 <% end %>
 <% else -%>
 <%= @daemon_list %> : <%= client %><% unless @optional_actions.empty? -%> : <%= @optional_actions %><% end -%>
@@ -42,8 +39,7 @@
 <% if @optional_actions.is_a?(Array) -%>
 <%= @daemon_list %> : <%= @client_list -%>
 <% @optional_actions.each do |action| -%>
- \
-	: <%= action -%>
+ : <%= action -%>
 <% end %>
 <% else -%>
 <%= @daemon_list %> : <%= @client_list %><% unless @optional_actions.empty? -%> : <%= @optional_actions %><% end -%>
