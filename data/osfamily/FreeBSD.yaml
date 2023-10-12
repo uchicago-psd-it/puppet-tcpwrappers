@@ -1,3 +1,5 @@
 ---
+tcpwrappers::deny_header: false
 tcpwrappers::deny_file_ensure: absent
+tcpwrappers::file_deny: $tcpwrappers::file_allow
 tcpwrappers::file_group: 'wheel'
