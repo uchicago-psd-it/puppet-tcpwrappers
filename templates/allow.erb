@@ -1,4 +1,6 @@
+<% unless @comment.nil? -%>
 # <%= @comment %>
+<% end -%>
 <% if @daemon_list.is_a?(Array) -%>
 <% @daemon_list.each do |daemon| -%>
 <% if @client_list.is_a?(Array) -%>
