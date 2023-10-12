@@ -7,16 +7,16 @@ class tcpwrappers::config {
   concat { "${tcpwrappers::config_dir}/${tcpwrappers::file_allow}":
     ensure         => 'present',
     ensure_newline => true,
-    owner          => 'root',
-    group          => 'root',
+    owner          => $tcpwrappers::file_owner,
+    group          => $tcpwrappers::file_group,
     mode           => '0644',
     order          => 'alpha',
   }
   concat { "${tcpwrappers::config_dir}/${tcpwrappers::file_deny}":
     ensure         => $tcpwrappers::file_deny_ensure,
     ensure_newline => true,
-    owner          => 'root',
-    group          => 'root',
+    owner          => $tcpwrappers::file_owner,
+    group          => $tcpwrappers::file_group,
     mode           => '0644',
     order          => 'alpha',
   }
