@@ -3,48 +3,30 @@
 <% end -%>
 <% if @daemon_list.is_a?(Array) -%>
 <% @daemon_list.each do |daemon| -%>
-<% if @client_list.is_a?(Array) -%>
-<% @client_list.each do |client| -%>
-<% if @optional_actions.is_a?(Array) -%>
-<%= daemon %> : <%= client -%>
-<% @optional_actions.each do |action| -%>
+<%= daemon -%> : <% if @client_list.is_a?(Array) -%>
+<%= @client_list.join(' ') -%>
+<% else -%>
+<%= @client_list -%>
+<% end -%>
+<% if @actions.is_a?(Array) -%>
+<% @actions.each do |action| -%>
  : <%= action -%>
 <% end %>
 <% else -%>
-<%= daemon %> : <%= client %><% unless @optional_actions.empty? -%> : <%= @optional_actions %><% end -%>
-<% end %>
+ : <%= @actions %>
+<% end -%>
 <% end -%>
 <% else -%>
-<% if @optional_actions.is_a?(Array) -%>
-<%= daemon %> : <%= @client_list -%>
-<% @optional_actions.each do |action| -%>
+<%= @daemon_list -%> : <% if @client_list.is_a?(Array) -%>
+<%= @client_list.join(' ') -%>
+<% else -%>
+<%= @client_list -%>
+<% end -%>
+<% if @actions.is_a?(Array) -%>
+<% @actions.each do |action| -%>
  : <%= action -%>
-<% end %>
-<% else -%>
-<%= daemon %> : <%= @client_list %><% unless @optional_actions.empty? -%> : <%= @optional_actions %><% end -%>
-<% end %>
-<% end -%>
 <% end -%>
 <% else -%>
-<% if @client_list.is_a?(Array) -%>
-<% @client_list.each do |client| -%>
-<% if @optional_actions.is_a?(Array) -%>
-<%= @daemon_list %> : <%= client -%>
-<% @optional_actions.each do |action| -%>
- : <%= action -%>
-<% end %>
-<% else -%>
-<%= @daemon_list %> : <%= client %><% unless @optional_actions.empty? -%> : <%= @optional_actions %><% end -%>
-<% end %>
-<% end -%>
-<% else -%>
-<% if @optional_actions.is_a?(Array) -%>
-<%= @daemon_list %> : <%= @client_list -%>
-<% @optional_actions.each do |action| -%>
- : <%= action -%>
-<% end %>
-<% else -%>
-<%= @daemon_list %> : <%= @client_list %><% unless @optional_actions.empty? -%> : <%= @optional_actions %><% end -%>
-<% end %>
+ : <%= @actions -%>
 <% end -%>
 <% end -%>
