@@ -182,7 +182,7 @@
 
     <li>
 
-        <span class='name'>optional_actions</span>
+        <span class='name'>actions</span>
 
 
         <span class='type'>(<tt>Optional[Variant[String,Array[String]]]</tt>)</span>
@@ -232,7 +232,7 @@ define tcpwrappers::allow (
   String                                    $order,
   Optional[String]                          $allow_template   = &#39;tcpwrappers/allow.erb&#39;,
   Optional[String]                          $comment          = undef,
-  Optional[Variant[String,Array[String]]]   $optional_actions = &#39;ALLOW&#39;,
+  Optional[Variant[String,Array[String]]]   $actions = &#39;ALLOW&#39;,
 ) {
   include ::tcpwrappers
   concat::fragment { &quot;tcpwrappers_${name}&quot;:

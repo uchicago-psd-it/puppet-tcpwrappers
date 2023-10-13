@@ -241,7 +241,7 @@ A comment to be included in the concat fragment to allow for readibility of host
 
 Default value: `undef`
 
-##### `optional_actions`
+##### `actions`
 
 Data type: `Optional[Variant[String,Array[String]]]`
 

@@ -138,7 +138,7 @@ tcpwrappers::allow { 'example_sshd_deny':
   daemon_list      => 'sshd',
   order            => '22_example_sshd_deny',
   comment          => 'Log and deny access to sshd from example.com',
-  optional_actions => [ 'spawn /bin/echo `/bin/date` access denied>>/var/log/sshd.log', 'DENY', ],
+  actions => [ 'spawn /bin/echo `/bin/date` access denied>>/var/log/sshd.log', 'deny', ],
 }
 ```
 
@@ -159,7 +159,7 @@ tcpwrappers::allow { 'example_sshd_no_badactor':
 tcpwrappers::allow { 'all_except_vsfptd_192_168':
   client_list      => '192.168.',
   daemon_list      => 'ALL EXCEPT vsftpd',
-  optional_actions => '',
+  actions => '',
   order            => '10_except_vsftpd_192_186',
   comment          => 'Allow access to all daemons except vsftpd from 192.168.',
 }
@@ -278,7 +278,7 @@ Variant[String,Array[String]]             $daemon_list,
 String                                    $order,
 Optional[String]                          $allow_template   = 'tcpwrappers/allow.erb',
 Optional[String]                          $comment          = undef,
-Optional[Variant[String,Array[String]]]   $optional_actions = 'ALLOW',
+Optional[Variant[String,Array[String]]]   $actions = 'allow',
 ```
 
 The tcpwrappers::allows class has the following parameters:

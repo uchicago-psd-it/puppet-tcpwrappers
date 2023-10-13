@@ -18,7 +18,7 @@
 # @param order Alphanumeric string that controls the ordering of concat fragments.
 # @param allow_template Template to use for fragment. Allows one to specify a different locally developed template instead of the module provided one.
 # @param comment A comment to be included in the concat fragment to allow for readibility of hosts.allow. The module template automatically places a "#" character in front of the comment.
-# @param optional_actions An optional acction or list of actions to be carried out when the rule is hit. This defaults to allow; however, it can be overridden with an empty string to remove completely the options from the rule.
+# @param actions An optional acction or list of actions to be carried out when the rule is hit. This defaults to allow; however, it can be overridden with an empty string to remove completely the options from the rule.
 #
 define tcpwrappers::allow (
   Variant[String,Array[String]]             $client_list,
@@ -26,7 +26,7 @@ define tcpwrappers::allow (
   String                                    $order,
   Optional[String]                          $allow_template   = 'tcpwrappers/allow.erb',
   Optional[String]                          $comment          = undef,
-  Optional[Variant[String,Array[String]]]   $optional_actions = 'allow',
+  Optional[Variant[String,Array[String]]]   $actions = 'allow',
 ) {
   include ::tcpwrappers
   concat::fragment { "tcpwrappers_${name}":

@@ -193,7 +193,7 @@
   daemon_list      =&gt; &#39;sshd&#39;,
   order            =&gt; &#39;22_example_sshd_deny&#39;,
   comment          =&gt; &#39;Log and deny access to sshd from example.com&#39;,
-  optional_actions =&gt; [ &#39;spawn /bin/echo `/bin/date` access denied&gt;&gt;/var/log/sshd.log&#39;, &#39;DENY&#39;, ],
+  actions =&gt; [ &#39;spawn /bin/echo `/bin/date` access denied&gt;&gt;/var/log/sshd.log&#39;, &#39;deny&#39;, ],
 }
 </code></pre>
 
@@ -212,7 +212,7 @@
 <pre class="code puppet"><code class="puppet">tcpwrappers::allow { &#39;all_except_vsfptd_192_168&#39;:
   client_list      =&gt; &#39;192.168.&#39;,
   daemon_list      =&gt; &#39;ALL EXCEPT vsftpd&#39;,
-  optional_actions =&gt; &#39;&#39;,
+  actions =&gt; &#39;&#39;,
   order            =&gt; &#39;10_except_vsftpd_192_186&#39;,
   comment          =&gt; &#39;Allow access to all daemons except vsftpd from 192.168.&#39;,
 }
@@ -333,7 +333,7 @@ Variant[String,Array[String]]             $daemon_list,
 String                                    $order,
 Optional[String]                          $allow_template   = &#39;tcpwrappers/allow.erb&#39;,
 Optional[String]                          $comment          = undef,
-Optional[Variant[String,Array[String]]]   $optional_actions = &#39;ALLOW&#39;,
+Optional[Variant[String,Array[String]]]   $actions = &#39;allow&#39;,
 </code></pre>
 
 <p>The tcpwrappers::allows class has the following parameters:</p>

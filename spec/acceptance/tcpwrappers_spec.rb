@@ -21,8 +21,8 @@ describe 'tcpwrappers class' do
       it { should be_mode 644 }
       it { should contain 'Puppet managed file. Local changes will be overwritten.' }
       it { should contain 'allow or deny connections to network services that' }
-      it { should_not contain 'ALLOW' }
-      it { should_not contain 'DENY' }
+      it { should_not contain 'allow' }
+      it { should_not contain 'deny' }
     end
 
     describe file('/etc/hosts.deny') do
@@ -32,7 +32,7 @@ describe 'tcpwrappers class' do
       it { should be_mode 644 }
       it { should contain 'Puppet managed file. Local changes will be overwritten.' }
       it { should contain 'deny connections to network services that either use' }
-      it { should_not contain 'DENY' }
+      it { should_not contain 'deny' }
     end
   end
 
@@ -80,7 +80,7 @@ describe 'tcpwrappers class' do
     end
 
     describe file('/etc/hosts.allow') do
-      it { should contain 'ALL : 127.0.0.1 : ALLOW' }
+      it { should contain 'ALL : 127.0.0.1 : allow' }
     end
   end
 
@@ -93,7 +93,7 @@ describe 'tcpwrappers class' do
     end
 
     describe file('/etc/hosts.allow') do
-      it { should contain 'ALL : [::1] : ALLOW' }
+      it { should contain 'ALL : [::1] : allow' }
     end
   end
 
@@ -106,7 +106,7 @@ describe 'tcpwrappers class' do
     end
 
     describe file('/etc/hosts.allow') do
-      it { should contain 'sshd : ALL : ALLOW' }
+      it { should contain 'sshd : ALL : allow' }
     end
     describe file('/etc/hosts.deny') do
       it { should contain 'ALL : ALL' }
